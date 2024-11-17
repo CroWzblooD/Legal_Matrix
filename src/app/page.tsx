@@ -67,6 +67,7 @@ const EnhancedStatCard: React.FC<StatCardProps> = ({
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -82,21 +83,35 @@ export default function Home() {
       <div className="fixed inset-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-[size:24px_24px]" />
       <div className="fixed inset-0 bg-[radial-gradient(circle_500px_at_50%_200px,#1C1C1C,transparent)]" />
 
-      {/* Navigation */}
-      <nav className="fixed w-full z-50 px-6 py-4">
+      {/* Navigation - Updated */}
+      <nav className="fixed w-full z-50 px-4 sm:px-6 py-4">
         <div className="max-w-7xl mx-auto">
-          <div className="relative bg-black/80 border border-[#333] rounded-sm px-6 py-4">
+          <div className="relative bg-black/80 border border-[#333] rounded-sm px-4 sm:px-6 py-4">
             <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 flex items-center justify-center border-2 border-white/10 
+              {/* Logo - Made smaller on mobile */}
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center border-2 border-white/10 
                               [clip-path:polygon(30%_0%,70%_0%,100%_30%,100%_70%,70%_100%,30%_100%,0%_70%,0%_30%)]">
-                  <FiHexagon className="w-6 h-6 text-white" />
+                  <FiHexagon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <span className="text-2xl font-bold text-white font-tech tracking-wider">
+                <span className="text-xl sm:text-2xl font-bold text-white font-tech tracking-wider">
                   LEGAL<span className="text-[#0FF]">/MATRIX</span>
                 </span>
               </div>
               
+              {/* Mobile Menu Button */}
+              <button 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden p-2 text-[#0FF]"
+              >
+                <div className="space-y-2">
+                  <span className={`block w-8 h-0.5 bg-current transform transition duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2.5' : ''}`}></span>
+                  <span className={`block w-8 h-0.5 bg-current transition duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`}></span>
+                  <span className={`block w-8 h-0.5 bg-current transform transition duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2.5' : ''}`}></span>
+                </div>
+              </button>
+
+              {/* Desktop Navigation */}
               <div className="hidden md:flex space-x-8">
                 <CyberNavLink href="/search">SEARCH_CASES</CyberNavLink>
                 <CyberNavLink href="/states">BROWSE_STATES</CyberNavLink>
@@ -104,38 +119,56 @@ export default function Home() {
                 <CyberNavLink href="/about">ABOUT</CyberNavLink>
               </div>
               
-              <button className="px-8 py-2 bg-[#0FF]/10 text-[#0FF] hover:bg-[#0FF]/20 
+              {/* Login Button - Hidden on mobile */}
+              <button className="hidden md:block px-8 py-2 bg-[#0FF]/10 text-[#0FF] hover:bg-[#0FF]/20 
                                transition-colors font-tech tracking-wider
                                [clip-path:polygon(0_0,100%_0,95%_100%,5%_100%)]">
                 LOGIN &gt;&gt;
               </button>
             </div>
+
+            {/* Mobile Menu */}
+            {mobileMenuOpen && (
+              <div className="md:hidden absolute top-full left-0 right-0 mt-2 bg-black/95 border border-[#333] p-4">
+                <div className="flex flex-col space-y-4">
+                  <CyberNavLink href="/search">SEARCH_CASES</CyberNavLink>
+                  <CyberNavLink href="/states">BROWSE_STATES</CyberNavLink>
+                  <CyberNavLink href="/ai-summary">AI_SUMMARY</CyberNavLink>
+                  <CyberNavLink href="/about">ABOUT</CyberNavLink>
+                  <button className="w-full px-8 py-2 bg-[#0FF]/10 text-[#0FF] hover:bg-[#0FF]/20 
+                                   transition-colors font-tech tracking-wider
+                                   [clip-path:polygon(0_0,100%_0,95%_100%,5%_100%)]">
+                    LOGIN &gt;&gt;
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </nav>
 
-      {/* Main Content */}
-      <div className="relative pt-40 px-6">
+      {/* Main Content - Updated */}
+      <div className="relative pt-32 sm:pt-40 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
-          {/* Hero Text */}
-          <div className="text-center mb-20">
-            <h1 className="text-7xl font-tech tracking-wider text-white mb-4">
+          {/* Hero Text - Updated */}
+          <div className="text-center mb-12 sm:mb-20">
+            <h1 className="text-4xl sm:text-7xl font-tech tracking-wider text-white mb-2 sm:mb-4">
               NEXT<span className="text-[#0FF]">_GEN</span>
             </h1>
-            <h2 className="text-7xl font-tech tracking-wider text-[#0FF] mb-6">
+            <h2 className="text-4xl sm:text-7xl font-tech tracking-wider text-[#0FF] mb-4 sm:mb-6">
               LEGAL_INTELLIGENCE
             </h2>
-            <p className="text-xl text-gray-400 font-mono">
+            <p className="text-lg sm:text-xl text-gray-400 font-mono px-4">
               &lt;Navigate the legal matrix with quantum-powered AI insights&gt;
             </p>
           </div>
 
-          {/* Search Section */}
-          <div className="max-w-4xl mx-auto space-y-6 mb-24">
+          {/* Search Section - Updated */}
+          <div className="max-w-4xl mx-auto space-y-6 mb-16 sm:mb-24">
             <SearchBar />
             
-            {/* Filters */}
-            <div className="grid grid-cols-4 gap-4">
+            {/* Filters - Updated */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
                 <label className="text-[#0FF]/70 text-sm font-tech mb-2 block">CASE_TYPE</label>
                 <select className="w-full bg-black/80 border border-[#0FF]/30 text-white px-4 py-2 
@@ -178,8 +211,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Stats Cards */}
-          <div className="grid grid-cols-3 gap-8 mb-20">
+          {/* Stats Cards - Updated */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 mb-20">
             <CyberStatCard 
               icon={<FiDatabase />}
               number="1M+" 
