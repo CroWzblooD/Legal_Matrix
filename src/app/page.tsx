@@ -107,7 +107,7 @@ export default function Home() {
               <button className="px-8 py-2 bg-[#0FF]/10 text-[#0FF] hover:bg-[#0FF]/20 
                                transition-colors font-tech tracking-wider
                                [clip-path:polygon(0_0,100%_0,95%_100%,5%_100%)]">
-                LOGIN >>
+                LOGIN &gt;&gt;
               </button>
             </div>
           </div>
