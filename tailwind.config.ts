@@ -8,11 +8,12 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      fontFamily: {
+        'tech': ['Share Tech Mono', 'monospace'],
+        'cyber': ['Rajdhani', 'sans-serif'],
+        'mono': ['JetBrains Mono', 'monospace'],
       },
-    },
+    }
   },
   plugins: [],
 } satisfies Config;
