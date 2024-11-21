@@ -11,17 +11,101 @@ import {
   ChevronDownIcon,
 } from '@heroicons/react/24/outline';
 
-const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+// Define interfaces for props
+interface NavLinkProps {
+  href: string;
+  children: React.ReactNode;
+  icon: React.ReactElement;
+}
+
+interface NavDropdownProps {
+  title: string;
+  items: ReadonlyArray<{
+    label: string;
+    href: string;
+  }>;
+}
+
+interface MobileNavLinkProps {
+  href: string;
+  children: React.ReactNode;
+}
+
+// Helper Components with TypeScript
+const NavLink: React.FC<NavLinkProps> = ({ href, children, icon }) => (
+  <Link
+    href={href}
+    className="flex items-center space-x-1 text-gray-600 hover:text-[#2D9D3A]
+               transition-colors"
+  >
+    {icon}
+    <span>{children}</span>
+  </Link>
+);
+
+const NavDropdown: React.FC<NavDropdownProps> = ({ title, items }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  return (
+    <div className="relative group">
+      <button
+        className="flex items-center space-x-1 text-gray-600 hover:text-[#2D9D3A]
+                   transition-colors"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span>{title}</span>
+        <ChevronDownIcon className="w-4 h-4" />
+      </button>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : 10 }}
+        className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg
+                   border border-gray-100 py-2 hidden group-hover:block"
+      >
+        {items.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="block px-4 py-2 text-gray-600 hover:text-[#2D9D3A]
+                     hover:bg-gray-50 transition-colors"
+          >
+            {item.label}
+          </Link>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
+const MobileNavLink: React.FC<MobileNavLinkProps> = ({ href, children }) => (
+  <Link
+    href={href}
+    className="block text-gray-600 hover:text-[#2D9D3A] transition-colors"
+  >
+    {children}
+  </Link>
+);
+
+// Main Navbar component
+const Navbar: React.FC = () => {
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Define services items with proper typing
+  const serviceItems = [
+    { label: 'Document Verification', href: '/services/verification' },
+    { label: 'Eligibility Check', href: '/services/eligibility' },
+    { label: 'Application Support', href: '/services/support' },
+  ] as const;
 
   return (
     <motion.nav
@@ -41,17 +125,12 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
-            {/* Nav Links */}
             <NavLink href="/schemes" icon={<DocumentTextIcon className="w-4 h-4" />}>
               Schemes
             </NavLink>
             <NavDropdown 
-              title="Services" 
-              items={[
-                { label: 'Document Verification', href: '/services/verification' },
-                { label: 'Eligibility Check', href: '/services/eligibility' },
-                { label: 'Application Support', href: '/services/support' },
-              ]} 
+              title="Services"
+              items={serviceItems}
             />
             <NavLink href="/about" icon={<UserGroupIcon className="w-4 h-4" />}>
               About Us
@@ -145,61 +224,5 @@ const Navbar = () => {
     </motion.nav>
   );
 };
-
-// Helper Components
-const NavLink = ({ href, children, icon }) => (
-  <Link
-    href={href}
-    className="flex items-center space-x-1 text-gray-600 hover:text-[#2D9D3A]
-               transition-colors"
-  >
-    {icon}
-    <span>{children}</span>
-  </Link>
-);
-
-const NavDropdown = ({ title, items }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="relative group">
-      <button
-        className="flex items-center space-x-1 text-gray-600 hover:text-[#2D9D3A]
-                   transition-colors"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <span>{title}</span>
-        <ChevronDownIcon className="w-4 h-4" />
-      </button>
-
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : 10 }}
-        className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg
-                   border border-gray-100 py-2 hidden group-hover:block"
-      >
-        {items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="block px-4 py-2 text-gray-600 hover:text-[#2D9D3A]
-                     hover:bg-gray-50 transition-colors"
-          >
-            {item.label}
-          </Link>
-        ))}
-      </motion.div>
-    </div>
-  );
-};
-
-const MobileNavLink = ({ href, children }) => (
-  <Link
-    href={href}
-    className="block text-gray-600 hover:text-[#2D9D3A] transition-colors"
-  >
-    {children}
-  </Link>
-);
 
 export default Navbar; 
