@@ -167,7 +167,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto space-y-6 mb-16 sm:mb-24">
             <SearchBar />
             
-            {/* Filters - Updated */}
+            {/* Filters// - Updated */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
                 <label className="text-[#0FF]/70 text-sm font-tech mb-2 block">CASE_TYPE</label>

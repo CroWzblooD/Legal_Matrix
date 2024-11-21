@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Initialize the Gemini API
+// Initialize the Gemini API////
 const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY || '');
 
 export const getLegalSuggestions = async (query: string) => {
@@ -17,7 +17,7 @@ export const getLegalSuggestions = async (query: string) => {
         {
           "title": "Case name",
           "year": "Year",
-          "court": "Court name",
+          "court": "Court names",
           "brief": "One line description"
         }
       ]

@@ -13,7 +13,7 @@ interface Suggestion {
 }
 
 export default function SearchBar() {
-  // Initialize state with empty string
+  // Initialize state with empty string///
   const [query, setQuery] = useState<string>('');
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);

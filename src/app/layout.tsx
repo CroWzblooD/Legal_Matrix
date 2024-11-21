@@ -17,7 +17,7 @@ export default function RootLayout({
     setMounted(true);
   }, []);
 
-  // Remove the data-cz-shortcut-listen attribute after mounting
+  // Remove the data-cz-shortcut-listen attribute after mounting//
   useEffect(() => {
     if (mounted) {
       const element = document.querySelector('[data-cz-shortcut-listen="true"]');
