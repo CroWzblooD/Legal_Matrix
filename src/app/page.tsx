@@ -153,7 +153,7 @@ export default function Home() {
           {/* Hero Text - Updated */}
           <div className="text-center mb-12 sm:mb-20">
             <h1 className="text-4xl sm:text-7xl font-tech tracking-wider text-white mb-2 sm:mb-4">
-              NEXT<span className="text-[#0FF]">_INDIAN</span>
+              NEXT<span className="text-[#0FF]">_WORLD</span>
             </h1>
             <h2 className="text-4xl sm:text-7xl font-tech tracking-wider text-[#0FF] mb-4 sm:mb-6">
               LEGAL_INTELLIGENCE
